@@ -1,5 +1,8 @@
 # Crack Segmentation
 
+shell command used:
+python inference_unet.py  -img_dir ./my_test_imgs -model_path ./models/model_unet_vgg_16_best.pt -model_type vgg16 -out_pred_dir ./my_test_results_pred -out_viz_dir ./my_test_results_viz
+
 Here I present my solution to the problem crack segmentation for both pavement and concrete meterials. 
 In this article, I describe the approaches, dataset that I exprimented with and desmonstrate the result. 
 My approach is based on the UNet network with transfer learning on the two popular architectures: VGG16 and Resnet101.
