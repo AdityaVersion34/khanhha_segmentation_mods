@@ -137,8 +137,8 @@ if __name__ == '__main__':
             cv_img_0 = cv.cvtColor(np.array(img_0, dtype=np.uint8), cv.COLOR_RGB2BGR)
             cv_prob_map_full = cv.cvtColor(np.array(prob_map_full * 255, dtype=np.uint8), cv.COLOR_RGB2BGR)
             cv_prob_map_full = cv_prob_map_full[:, :] * np.array([1, 0, 1], dtype=np.uint8)
-            print(cv_img_0.shape)
-            print(cv_prob_map_full.shape)
+            #print(cv_img_0.shape)
+            #print(cv_prob_map_full.shape)
             #print(cv_img_0[0,0].shape)
             # for i in (cv_prob_map_full[:]):
             #     for j in (i[:]):
