@@ -136,7 +136,7 @@ if __name__ == '__main__':
             #cv.imwrite(filename=join(args.out_pred_dir, f'{path.stem}.jpg'), img=(prob_map_full * 255).astype(np.uint8))
             cv_img_0 = cv.cvtColor(np.array(img_0, dtype=np.uint8), cv.COLOR_RGB2BGR)
             cv_prob_map_full = cv.cvtColor(np.array(prob_map_full * 255, dtype=np.uint8), cv.COLOR_RGB2BGR)
-            cv_prob_map_full = cv_prob_map_full[:, :] * np.array([0, 1, 0], dtype=np.uint8)
+            cv_prob_map_full = cv_prob_map_full[:, :] * np.array([1, 0, 1], dtype=np.uint8)
             print(cv_img_0.shape)
             print(cv_prob_map_full.shape)
             #print(cv_img_0[0,0].shape)
@@ -146,8 +146,8 @@ if __name__ == '__main__':
             #             print(j.shape)
             #             print(j)
             #composite_image = cv.addWeighted(cv_img_0, 0.2, cv_prob_map_full, 0.8, 0)
-            composite_image = cv_img_0 + cv_prob_map_full   #allowing overflow for now because of good contrast.
-                    #may have to fix overflow for photogrammetry
+            composite_image = cv.add(cv_img_0, cv_prob_map_full)    #saturating image, no overflow
+            #composite_image = cv_img_0 + cv_prob_map_full   #allowing overflow for now because of good contrast.
             cv.imwrite(filename=join(args.out_pred_dir, f'{path.stem}.jpg'), img=composite_image)
 
         if args.out_viz_dir != '':
