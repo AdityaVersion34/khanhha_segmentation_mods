@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 from PIL import Image
 
-def img_splitter(img_path, splits_per_dim, dest_path) -> None:
+def img_splitter(img_path, splits_per_dim, dest_path) -> tuple:
     '''
     Splits each image found in img_path into splits_per_dim images per dimension
 
@@ -17,6 +17,8 @@ def img_splitter(img_path, splits_per_dim, dest_path) -> None:
     Returns:
         None, saves split images in destination folder
     '''
+
+    #TODO: no longer allows images of different dimensions
 
     #creating img_path and dest_path if necessary
     p_img_path = Path(img_path)
@@ -45,8 +47,15 @@ def img_splitter(img_path, splits_per_dim, dest_path) -> None:
                     #creating coordinate bounds for current sub image
                     top = i * sub_height
                     left = j * sub_width
+
+                    #condition to account for leftover pixels
                     bottom = top + sub_height
+                    if i == splits_per_dim - 1:
+                        bottom += height % splits_per_dim
+
                     right = left + sub_width
+                    if j == splits_per_dim - 1:
+                        right += width % splits_per_dim
 
                     sub_img = img.crop((left, top, right, bottom))
                     #saving the sub image
@@ -56,5 +65,7 @@ def img_splitter(img_path, splits_per_dim, dest_path) -> None:
 
             img.close()
 
+    return img.size
+
 if __name__ == '__main__':
-    img_splitter("./my_test_imgs", 10, "./my_split_imgs")
+    print(img_splitter("./my_test_imgs", 10, "./my_split_imgs"))

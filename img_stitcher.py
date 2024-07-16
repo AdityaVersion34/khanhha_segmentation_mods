@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 from PIL import Image
 
-def img_stitcher(img_path, splits_per_dim, dest_path) -> None:
+def img_stitcher(img_path, splits_per_dim, dest_path, src_dim) -> None:
     '''
     Stitches the split images into a larger original image
     For instance, consider 100 images in img_path, with splits_per_dim = 10. This function would combine the
@@ -16,6 +16,8 @@ def img_stitcher(img_path, splits_per_dim, dest_path) -> None:
     Returns:
         None, saves stitches images in dest_path
     '''
+
+    #TODO: currently only handles images that are all the same size
 
     # creating img_path and dest_path if necessary
     p_img_path = Path(img_path)
@@ -45,7 +47,7 @@ def img_stitcher(img_path, splits_per_dim, dest_path) -> None:
         sample_img.close()
 
         #creating canvas mega image
-        mega_img = Image.new('RGB', (mini_width * splits_per_dim, mini_height * splits_per_dim))
+        mega_img = Image.new('RGB', src_dim)
 
         #iterating and stitching images
         for i in range(splits_per_dim**2):
@@ -65,4 +67,4 @@ def img_stitcher(img_path, splits_per_dim, dest_path) -> None:
 
 
 if __name__ == '__main__':
-    img_stitcher("./my_test_results_pred", 10, "./my_stitched_imgs")
+    img_stitcher("./my_test_results_pred", 10, "./my_stitched_imgs", (5472, 3648))
