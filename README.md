@@ -3,6 +3,9 @@
 shell command used:
 python inference_unet.py  -img_dir ./my_test_imgs -model_path ./models/model_unet_vgg_16_best.pt -model_type vgg16 -out_pred_dir ./my_test_results_pred -out_viz_dir ./my_test_results_viz
 
+pyinstaller command:
+pyinstaller --paths "C:\Users\<NAME>\anaconda3\envs\<ENV_NAME>\Lib\site-packages" --onefile --debug=all --hidden-import torch._vendor.packaging --hidden-import torch.version --hidden-import pytorch --hidden-import torch._C --hidden-import torch._utils_internal --hidden-import typing_extensions --add-data="models\model_unet_vgg_16_best.pt;models" -n "Bulk Img Proc" cli.py
+
 Here I present my solution to the problem crack segmentation for both pavement and concrete meterials. 
 In this article, I describe the approaches, dataset that I exprimented with and desmonstrate the result. 
 My approach is based on the UNet network with transfer learning on the two popular architectures: VGG16 and Resnet101.
